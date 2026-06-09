@@ -29,6 +29,8 @@ public class ConfigSecrets implements BeanFactoryPostProcessor {
 
     private final String ssmPrefix = System.getenv("SSM_PREFIX");
 
+    private final String otelEndpointParameterName = System.getenv("OTEL_ENDPOINT_PARAMETER_NAME");
+
     private final SsmClient ssmClient = SsmClient.create();
 
     @Override
@@ -60,7 +62,12 @@ public class ConfigSecrets implements BeanFactoryPostProcessor {
                 if (keyStr.endsWith(".secret")) {
                     // get the key without the ".secret" suffix and replace '.' with '_'
                     String modifiedKeyStr = keyStr.substring(0, keyStr.length() - 7).replace('.', '_');
-                    String secretName = String.format("%s/%s", ssmPrefix, modifiedKeyStr);
+                    String secretName;
+                    if (keyStr.equals("otel.exporter.otlp.endpoint.secret") && otelEndpointParameterName != null) {
+                        secretName = otelEndpointParameterName;
+                    } else {
+                        secretName = String.format("%s/%s", ssmPrefix, modifiedKeyStr);
+                    }
                     ApiLogger.info("reading SSM param (key: " + modifiedKeyStr + ")");
                     properties.setProperty(keyStr, getSecret(secretName));
                 }
