@@ -32,8 +32,7 @@
       <maven-assembly-plugin.version>3.2.0</maven-assembly-plugin.version>
       <maven-shade-plugin.version>3.6.0</maven-shade-plugin.version>
 
-      <!-- <sonar.java.binaries>${project.basedir}/target,${project.basedir}/target/*</sonar.java.binaries>
-      <sonar-maven-plugin.version>5.0.0.4389</sonar-maven-plugin.version> -->
+      <sonar.jacoco.reports>${project.basedir}/target/site</sonar.jacoco.reports>
 
       <aws.java.sdk.version>2.29.36</aws.java.sdk.version>
       <aws.lambda.core.version>1.2.2</aws.lambda.core.version>
@@ -316,7 +315,35 @@
                   </annotationProcessorPaths>
                </configuration>
             </plugin>
-
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco-maven-plugin.version}</version>
+                <configuration>
+                    <append>true</append>
+                    <destFile>${sonar.jacoco.reports}/jacoco.exec</destFile>
+                    <dataFile>${sonar.jacoco.reports}/jacoco.exec</dataFile>
+                    <outputDirectory>${sonar.jacoco.reports}/jacoco</outputDirectory>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>pre-unit-test</id>
+                        <goals>
+                        <goal>prepare-agent</goal>
+                        </goals>
+                        <configuration>
+                        <propertyName>surefireArgLine</propertyName>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>post-unit-test</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
       </plugins>
    </build>
 </project>
