@@ -22,6 +22,15 @@ public class MongoMetricsInfo {
    @Field("components")
    private int components;
 
+   @Field("policyViolationsTotal")
+   private int policyViolationsTotal;
+   
+   @Field("policyViolationsWarn")
+   private int policyViolationsWarn;
+   
+   @Field("policyViolationsFail")
+   private int policyViolationsFail;
+   
    // Getters and Setters
    public int getCritical() {
       return critical;
@@ -70,10 +79,34 @@ public class MongoMetricsInfo {
       this.components = components;
    }
 
+   public int getPolicyViolationsTotal() {
+      return policyViolationsTotal;
+   }
+   
+   public void setPolicyViolationsTotal(int policyViolationsTotal) {
+      this.policyViolationsTotal = policyViolationsTotal;
+   }
+   
+   public int getPolicyViolationsWarn() {
+      return policyViolationsWarn;
+   }
+   
+   public void setPolicyViolationsWarn(int policyViolationsWarn) {
+      this.policyViolationsWarn = policyViolationsWarn;
+   }
+
+   public int getPolicyViolationsFail() {
+      return policyViolationsFail;
+   }
+
+   public void setPolicyViolationsFail(int policyViolationsFail) {
+      this.policyViolationsFail = policyViolationsFail;
+   }
+
    @Override
    public String toString() {
-      return String.format("critical:%s high:%s medium:%s low:%s vulnerabilities:%s components:%s",
-      critical, high, medium, low, vulnerabilities, components);
+      return String.format("critical:%s high:%s medium:%s low:%s vulnerabilities:%s policyViolationsTotal:%s policyViolationsWarn:%s policyViolationsFail:%s",
+      critical, high, medium, low, vulnerabilities, policyViolationsTotal, policyViolationsWarn, policyViolationsFail);
    }
 }
 
