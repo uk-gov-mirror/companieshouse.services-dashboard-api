@@ -22,6 +22,16 @@ public class DepTrackMetricsInfo {
    @JsonProperty("components")
    private int components;
 
+   @JsonProperty("policyViolationsTotal")
+   private int policyViolationsTotal;
+   
+   @JsonProperty("policyViolationsWarn")
+   private int policyViolationsWarn;
+   
+   @JsonProperty("policyViolationsFail")
+   private int policyViolationsFail;
+
+
    // Getters and Setters
    public int getCritical() {
       return critical;
@@ -71,9 +81,33 @@ public class DepTrackMetricsInfo {
       this.components = components;
    }
 
+   public int getPolicyViolationsTotal() {
+      return policyViolationsTotal;
+   }
+
+   public void setPolicyViolationsTotal(int policyViolationsTotal) {
+      this.policyViolationsTotal = policyViolationsTotal;
+   }
+
+   public int getPolicyViolationsWarn() {
+      return policyViolationsWarn;
+   }
+
+   public void setPolicyViolationsWarn(int policyViolationsWarn) {
+      this.policyViolationsWarn = policyViolationsWarn;
+   }
+
+   public int getPolicyViolationsFail() {
+      return policyViolationsFail;
+   }
+
+   public void setPolicyViolationsFail(int policyViolationsFail) {
+      this.policyViolationsFail = policyViolationsFail;
+   }
+
    @Override
    public String toString() {
-       return String.format("{C:%s/H:%s/M:%s/L:%s/v:%s/c:%s}", critical, high, medium, low, vulnerabilities, components);
+       return String.format("{C:%s/H:%s/M:%s/L:%s/v:%s/c:%s/pT:%s/pW:%s/pF:%s}", critical, high, medium, low, vulnerabilities, components, policyViolationsTotal, policyViolationsWarn, policyViolationsFail);
    }
 }
 
