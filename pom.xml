@@ -32,7 +32,13 @@
       <maven-assembly-plugin.version>3.2.0</maven-assembly-plugin.version>
       <maven-shade-plugin.version>3.6.0</maven-shade-plugin.version>
 
-      <sonar.jacoco.reports>${project.basedir}/target/site</sonar.jacoco.reports>
+      <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
+		<sonar.sources>src/main</sonar.sources>
+		<sonar.tests>src/test</sonar.tests>
+		<sonar.verbose>true</sonar.verbose>
+		<sonar.coverage.jacoco.xmlReportPaths>
+			${project.basedir}/target/site/jacoco/jacoco.xml
+		</sonar.coverage.jacoco.xmlReportPaths>
 
       <aws.java.sdk.version>2.29.36</aws.java.sdk.version>
       <aws.lambda.core.version>1.2.2</aws.lambda.core.version>
@@ -316,33 +322,19 @@
                </configuration>
             </plugin>
             <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <version>${jacoco-maven-plugin.version}</version>
-                <configuration>
-                    <append>true</append>
-                    <destFile>${sonar.jacoco.reports}/jacoco.exec</destFile>
-                    <dataFile>${sonar.jacoco.reports}/jacoco.exec</dataFile>
-                    <outputDirectory>${sonar.jacoco.reports}/jacoco</outputDirectory>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>pre-unit-test</id>
-                        <goals>
-                        <goal>prepare-agent</goal>
-                        </goals>
-                        <configuration>
-                        <propertyName>surefireArgLine</propertyName>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>post-unit-test</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>report</goal>
-                        </goals>
-                    </execution>
-                </executions>
+               <groupId>org.apache.maven.plugins</groupId>
+               <artifactId>maven-surefire-plugin</artifactId>
+               <version>${maven-surefire-plugin.version}</version>
+            </plugin>
+            <plugin>
+               <groupId>org.jacoco</groupId>
+               <artifactId>jacoco-maven-plugin</artifactId>
+               <version>${jacoco-maven-plugin.version}</version>
+            </plugin>
+            <plugin>
+               <groupId>org.sonarsource.scanner.maven</groupId>
+               <artifactId>sonar-maven-plugin</artifactId>
+               <version>${sonar-maven-plugin.version}</version>
             </plugin>
       </plugins>
    </build>

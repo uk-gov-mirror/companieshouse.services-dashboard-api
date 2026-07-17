@@ -22,10 +22,6 @@ build:
 	cp ./target/$(artifact_name)${shadedClassifierName}.jar .
 	@echo "Finished build"
 
-.PHONY: coverage
-coverage:
-	mvn verify -Dnet.bytebuddy.experimental=true
-
 .PHONY: test
 test: test-unit
 
