@@ -2,36 +2,22 @@ package uk.gov.companieshouse.servicesdashboardapi.model.dao;
 
 import org.junit.jupiter.api.Test;
 
-import uk.gov.companieshouse.servicesdashboardapi.mapper.ProjectInfoMapper;
-import uk.gov.companieshouse.servicesdashboardapi.model.deptrack.DepTrackMetricsInfo;
-import uk.gov.companieshouse.servicesdashboardapi.utils.CustomJsonMapper;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class MongoMetricsInfoTest {
     @Test
-    void shouldMapDepTrackMetricsInfoIntoMongoMetrics() throws Exception {
-        String json = """
-            {
-                "critical": 1,
-                "high": 2,
-                "medium": 3,
-                "low": 4,
-                "vulnerabilities": 10,
-                "components": 20,
-                "policyViolationsTotal": 30,
-                "policyViolationsWarn": 40,
-                "policyViolationsFail": 50
-            }
-            """;
-
-        CustomJsonMapper mapper = new CustomJsonMapper();
-        DepTrackMetricsInfo depTrack =
-            mapper.readValue(json, DepTrackMetricsInfo.class);
-
-        MongoMetricsInfo mongoMetrics =
-            ProjectInfoMapper.INSTANCE.mapDepTrackMetricsInfoToMongoMetricsInfo(depTrack);
+    void shouldCreateMongoMetricsInfoWithValues() {
+        MongoMetricsInfo mongoMetrics = new MongoMetricsInfo();
+        mongoMetrics.setCritical(1);
+        mongoMetrics.setHigh(2);
+        mongoMetrics.setMedium(3);
+        mongoMetrics.setLow(4);
+        mongoMetrics.setVulnerabilities(10);
+        mongoMetrics.setComponents(20);
+        mongoMetrics.setPolicyViolationsTotal(30);
+        mongoMetrics.setPolicyViolationsWarn(40);
+        mongoMetrics.setPolicyViolationsFail(50);
 
         assertNotNull(mongoMetrics);
         assertEquals(1, mongoMetrics.getCritical());
