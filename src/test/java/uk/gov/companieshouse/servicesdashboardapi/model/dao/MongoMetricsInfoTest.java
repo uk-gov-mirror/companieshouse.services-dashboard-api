@@ -9,7 +9,7 @@ import uk.gov.companieshouse.servicesdashboardapi.utils.CustomJsonMapper;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-public class MongoMetricsInfoTest {
+class MongoMetricsInfoTest {
     @Test
     void shouldMapDepTrackMetricsInfoIntoMongoMetrics() throws Exception {
         String json = """
