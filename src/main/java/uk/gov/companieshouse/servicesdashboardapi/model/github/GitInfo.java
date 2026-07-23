@@ -68,23 +68,25 @@ public class GitInfo {
    //    "ecs-service-1.0.20"  |
    private List<GitReleaseInfo> filterReleases(List<GitReleaseInfo> gitReleases) {
         List<GitReleaseInfo> rel = new ArrayList<GitReleaseInfo>();
-        if (! gitReleases.isEmpty()) {
-            GitReleaseInfo firstRelease = gitReleases.get(0);
-            rel.add(firstRelease);
 
-            String regexPattern = buildRegexPattern(firstRelease.getVersion());
-            // System.out.println("Generated Regex: " + regexPattern);
+        if (gitReleases.isEmpty()) {
+            return rel;
+        }
 
-            Pattern pattern = Pattern.compile(regexPattern);
+        GitReleaseInfo firstRelease = gitReleases.get(0);
+        rel.add(firstRelease);
 
-            // The built regex are generic and could potentially match more random strings
-            // ex the regex from v1.177.0-rc3" matches something like "Z1876545.22222.564-LL99999"
-            // but that's ok considering that our GitHub releases' format is consistent
-            for (GitReleaseInfo r : gitReleases) {
-                if (!pattern.matcher(r.getVersion()).matches()) {
-                    rel.add(r); // Add any optional different format and then break. (We'll then have max 2 releases)
-                    break;
-                }
+        String regexPattern = buildRegexPattern(firstRelease.getVersion());
+
+        Pattern pattern = Pattern.compile(regexPattern);
+
+        // The built regex are generic and could potentially match more random strings
+        // ex the regex from v1.177.0-rc3" matches something like "Z1876545.22222.564-LL99999"
+        // but that's ok considering that our GitHub releases' format is consistent
+        for (GitReleaseInfo r : gitReleases) {
+            if (!pattern.matcher(r.getVersion()).matches()) {
+                rel.add(r); // Add any optional different format and then break. (We'll then have max 2 releases)
+                break;
             }
         }
         return rel;
