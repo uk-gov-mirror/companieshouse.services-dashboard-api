@@ -23,6 +23,7 @@ class GitInfoTest {
         assertEquals("Java", gitInfo.getLang());
         assertEquals("team-photon", gitInfo.getOwner());
         assertEquals("Common Components", gitInfo.getServiceArea());
+        assertEquals("{r:https://github.com/companieshouse/services-dashboard-api l:Java o:team-photon sA:Common Components [R:unknown]}", gitInfo.toString());
     }
 
     @Test
