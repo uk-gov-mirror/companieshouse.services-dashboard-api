@@ -64,7 +64,7 @@ public class GitService {
       this.httpEntity = new HttpEntity<>(headers);
    }
 
-   public String getRepoOwner(String project) {
+   public GitCustomProperty[] getCustomProperties(String project) {
       String customPropEndpoint = String.format("%s/repos/%s/%s/properties/values", api, org, project);
       try {
          ResponseEntity<GitCustomProperty[]> response = restTemplate.exchange(
@@ -74,20 +74,33 @@ public class GitService {
             GitCustomProperty[].class
          );
 
-         GitCustomProperty[] properties = response.getBody();
+         return response.getBody();
+      } catch (Exception e) {
+         ApiLogger.info("Failed to retrieve Git Custom Properties for " + project + ": " + e.getMessage());
+      }
+      return new GitCustomProperty[0];
+   }
 
-         // Filter and find the value of "team-code-owner"
-         if (properties != null) {
-            for (GitCustomProperty property : properties) {
-               if ("team-code-owner".equals(property.getPropertyName())) {
-                  return property.getValue();
-               }
+   public String getRepoOwner(GitCustomProperty[] properties) {
+      if (properties != null) {
+         for (GitCustomProperty property : properties) {
+            if ("team-code-owner".equals(property.getPropertyName())) {
+               return property.getValue();
             }
          }
-      } catch (Exception e) {
-         ApiLogger.info("Failed to retrieve Git Repo Owner " + project + ": " + e.getMessage());
       }
       return "No-Owner";
+   }
+
+   public String getServiceArea(GitCustomProperty[] properties) {
+      if (properties != null) {
+         for (GitCustomProperty property : properties) {
+            if ("service-area".equals(property.getPropertyName())) {
+               return property.getValue();
+            }
+         }
+      }
+      return "No-Service-Area";
    }
 
    public GitInfo getRepoInfo(String project) {
@@ -135,8 +148,13 @@ public class GitService {
             gitInfo.setReleases(releases);
          }
 
+         GitCustomProperty[] properties = getCustomProperties(project);
+
          // add repo's owner
-         gitInfo.setOwner(getRepoOwner(project));
+         gitInfo.setOwner(getRepoOwner(properties));
+
+         // add repo's service area
+         gitInfo.setServiceArea(getServiceArea(properties));
 
       } catch (Exception e) {
          ApiLogger.info("Failed to retrieve Git info for " + gitInfo.getRepo() + ": " + e.getMessage());

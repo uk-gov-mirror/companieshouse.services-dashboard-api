@@ -2,7 +2,6 @@ package uk.gov.companieshouse.servicesdashboardapi.model.merge;
 
 import java.util.List;
 import java.util.Map;
-// import java.util.Set;
 
 import uk.gov.companieshouse.servicesdashboardapi.model.github.GitInfo;
 
@@ -13,7 +12,6 @@ public class ProjectInfo {
    private String sonarKey;
    private Map<String, Integer> sonarMetrics;
    private GitInfo gitInfo;
-   // private Map<String, Set<String>> ecs;
 
 
    // Getters and setters
@@ -60,14 +58,6 @@ public class ProjectInfo {
    public void setGitInfo(GitInfo gitInfo) {
       this.gitInfo = gitInfo;
    }
-
-   // public Map<String, Set<String>> getEcs() {
-   //    return ecs;
-   // }
-
-   // public void setEcs(Map<String, Set<String>> ecs) {
-   //       this.ecs = ecs;
-   // }
 
    @Override
    public String toString() {

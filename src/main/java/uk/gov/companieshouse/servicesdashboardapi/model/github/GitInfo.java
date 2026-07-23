@@ -8,6 +8,7 @@ public class GitInfo {
    private String repo;
    private String lang;
    private String owner;
+   private String serviceArea;
    private List<GitReleaseInfo> releases;
 
    // Getters and Setters
@@ -31,6 +32,14 @@ public class GitInfo {
       this.owner = owner;
    }
 
+   public String getServiceArea() {
+      return serviceArea;
+   }
+
+   public void setServiceArea(String serviceArea) {
+      this.serviceArea = serviceArea;
+   }
+
    public void setLang(String lang) {
       this.lang = lang;
    }
@@ -45,7 +54,7 @@ public class GitInfo {
 
    @Override
    public String toString() {
-      return String.format("{r:%s l:%s o:%s [R:%s]}", repo, lang, owner, (releases == null || releases.isEmpty()) ? "unknown" : releases.toString());
+      return String.format("{r:%s l:%s o:%s sA:%s [R:%s]}", repo, lang, owner, serviceArea, (releases == null || releases.isEmpty()) ? "unknown" : releases.toString());
    }
 
 
