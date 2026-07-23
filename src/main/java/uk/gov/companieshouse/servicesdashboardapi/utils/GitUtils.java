@@ -20,7 +20,7 @@ public class GitUtils {
    //    "4.0.10"              |
    //    "ecs-service-1.0.20"  |
    public static List<GitReleaseInfo> filterReleases(List<GitReleaseInfo> gitReleases) {
-        List<GitReleaseInfo> rel = new ArrayList<GitReleaseInfo>();
+        List<GitReleaseInfo> rel = new ArrayList<>();
 
         if (gitReleases.isEmpty()) {
             return rel;
