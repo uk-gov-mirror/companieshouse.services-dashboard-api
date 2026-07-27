@@ -95,7 +95,7 @@ public class GitService {
    public String getServiceArea(GitCustomProperty[] properties) {
       if (properties != null) {
          for (GitCustomProperty property : properties) {
-            if ("service-area".equals(property.getPropertyName())) {
+            if ("service-code-owner".equals(property.getPropertyName())) {
                return property.getValue();
             }
          }
