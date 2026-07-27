@@ -33,7 +33,7 @@ class GitServiceTest {
         owner.setValue("team-photon");
 
         GitCustomProperty serviceArea = new GitCustomProperty();
-        serviceArea.setPropertyName("service-area");
+        serviceArea.setPropertyName("service-code-owner");
         serviceArea.setValue("Common Components");
 
         GitCustomProperty[] expected = new GitCustomProperty[] {owner, serviceArea};
@@ -84,7 +84,7 @@ class GitServiceTest {
         teamOwner.setValue("team-photon");
 
         GitCustomProperty otherProperty = new GitCustomProperty();
-        otherProperty.setPropertyName("service-area");
+        otherProperty.setPropertyName("service-code-owner");
         otherProperty.setValue("Common Components");
 
         String owner = gitService.getRepoOwner(new GitCustomProperty[] {otherProperty, teamOwner});
@@ -117,7 +117,7 @@ class GitServiceTest {
         teamOwner.setValue("team-photon");
 
         GitCustomProperty serviceArea = new GitCustomProperty();
-        serviceArea.setPropertyName("service-area");
+        serviceArea.setPropertyName("service-code-owner");
         serviceArea.setValue("Common Components");
 
         String area = gitService.getServiceArea(new GitCustomProperty[] {teamOwner, serviceArea});
