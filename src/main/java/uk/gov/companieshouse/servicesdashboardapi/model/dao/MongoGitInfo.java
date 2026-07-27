@@ -18,6 +18,9 @@ public class MongoGitInfo {
    @Field("owner")
    private String owner;
 
+   @Field("serviceArea")
+   private String serviceArea;
+
    // Getters and Setters
    public String getRepo() {
        return repo;
@@ -51,9 +54,17 @@ public class MongoGitInfo {
       this.releases = releases;
    }
 
+   public String getServiceArea() {
+      return serviceArea;
+   }
+   
+   public void setServiceArea(String serviceArea) {
+      this.serviceArea = serviceArea;
+   }
+
 
   @Override
   public String toString() {
-      return String.format("{r:%s, o:%s, [l:%s]}", repo, owner, releases.toString());
+      return String.format("{r:%s, o:%s, sa:%s, [l:%s]}", repo, owner, serviceArea, releases.toString());
   }
 }
